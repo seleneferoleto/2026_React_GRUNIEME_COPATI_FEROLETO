@@ -7,7 +7,8 @@ function CrearTarea(id, materia, nota, fecha_creacion, fecha_entrega, completada
         nota: nota,
         fecha_creacion: fecha_creacion,
         fecha_entrega: fecha_entrega,
-        completada : true 
+        completada : true ,
+        prioridad : alta
     };
 }
 
@@ -17,16 +18,4 @@ function MostrarTarea(Tarea){
         Tarea.fecha_creacion + ", Fecha entrega: " + Tarea.fecha_entrega);
 }
 
-function agregarTarea(lista, tarea) {
-  return [...lista, tarea];
-}
-
-function buscarPorId(lista, id) {
-  return lista.find(tarea => tarea.id === id);
-}
-
-function completarTarea(lista, id) {
-  return lista.map(tarea =>tarea.id === id? { ...tarea, completada: true }: tarea
-  );
-}
 
