@@ -5,7 +5,7 @@ import ListadoTareas from './ListadoTareas';
 import SearchBar from './SearchBar';
 import FilterBar from './FilterBar';
 import SortBar from './SortBar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 const INITIAL_TAREAS: Tarea[] = [
@@ -15,7 +15,14 @@ const INITIAL_TAREAS: Tarea[] = [
 ];
 
 function App() {
-  const [tareas, setTareas] = useState<Tarea[]>(INITIAL_TAREAS);
+  const [tareas, setTareas] = useState<Tarea[]>(() => {
+    const saved = localStorage.getItem("tareas");
+    return saved ? JSON.parse(saved) : INITIAL_TAREAS;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+  }, [tareas]);
   const [busqueda, setBusqueda] = useState("");
   const [filtroEstado, setFiltroEstado] = useState<"todas" | "completadas" | "pendientes">("todas");
   const [ordenPrioridad, setOrdenPrioridad] = useState<"ninguna" | Prioridad>("ninguna");
